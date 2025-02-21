@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Document</title>
+  <style>
+    table,tr,th,td {
+      border: solid black 1px;
+      border-collapse: collapse;
+    }
+
+    td{
+      padding: 1em;
+    }
+
+  </style>
+</head>
+<body>
+
+<form th:action="@{/products}" th:object="${product}" method="post">
+  <div style="display: flex;justify-content: space-between;align-items: center" >
+    <div>
+      <h1>Liste des produits</h1>
+    </div>
+    <div>
+      <span th:object="${username}"></span>
+      <span th:object="${name}"></span>
+      <button onclick="javascript:document.location.href='http://localhost:8081/logout'" >Déconnexion</button>
+    </div>
+  </div>
+  <br>
+  <div style="display: flex;align-items: center" >
+    <input type="text" placeholder="Product designation" id="name" th:field="*{name}" required />
+    <button type="submit">Save</button>
+  </div>
+</form>
+<br>
+<table>
+  <thead>
+  <tr>
+    <th> Référence</th>
+    <th> Désignation</th>
+    <th> Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="product : ${products}">
+    <td th:text="${product.ref}">1</td>
+    <td><a href="#" th:text="${product.name}">Title ...</a></td>
+    <td>
+      <a th:href="'/products/edit/'+${product.ref}">
+        <button>Modifier</button>
+      </a>
+      <a th:href="'/products/delete/'+${product.ref}">
+        <button>Supprimer</button>
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
+

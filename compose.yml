@@ -1,0 +1,69 @@
+version: '3.9'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_mvc_keycloak
+    restart: always
+    environment:
+      DB_HOST: mysql_database
+      DB_NAME: lab2db2
+      DB_USERNAME: david
+      DB_PASSWORD: Passer1234@
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql_database
+      - keycloak
+
+  mysql_database:
+    image: mysql
+    container_name: mysql_database
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lab2db2
+      MYSQL_USER: david
+      MYSQL_PASSWORD: Passer1234@
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_database_data:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+
+  postgres:
+    image: postgres:9.6
+    container_name: postgres
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: david
+      POSTGRES_PASSWORD: Passer1234@
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    command: ["start-dev", "--import-realm", "--import=/opt/keycloak/data/import/realm.json"]
+    environment:
+      KEYCLOAK_DATABASE_HOST: postgres
+      KEYCLOAK_DATABASE_NAME: keycloak
+      KEYCLOAK_DATABASE_USER: david
+      KEYCLOAK_DATABASE_SCHEMA: public
+      KEYCLOAK_DATABASE_PASSWORD: Passer1234@
+      KEYCLOAK_ADMIN_USER: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD : admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    volumes:
+      - ./kc-realm.json:/opt/keycloak/data/import/realm.json
+
+volumes:
+  mysql_database_data:
+    driver: local
+  postgres_data:
+    driver: local

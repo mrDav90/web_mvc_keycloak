@@ -1,0 +1,33 @@
+{
+  "realm": "webmvcapp-realm",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "webmvcapp-client",
+      "directAccessGrantsEnabled": true,
+      "publicClient": true,
+      "redirectUris": ["http://localhost:8081/*"]
+    }
+  ],
+  "users": [
+    {
+      "username": "david",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Passer1234@"
+        }
+      ],
+      "realmRoles": ["user"]
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "Role for standard users"
+      }
+    ]
+  }
+}
