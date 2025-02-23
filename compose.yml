@@ -1,21 +1,21 @@
 version: '3.9'
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: app_mvc_keycloak
-    restart: always
-    environment:
-      DB_HOST: mysql_database
-      DB_NAME: lab2db2
-      DB_USERNAME: david
-      DB_PASSWORD: Passer1234@
-    ports:
-      - "8081:8081"
-    depends_on:
-      - mysql_database
-      - keycloak
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: app_mvc_keycloak
+  #   restart: always
+  #   environment:
+  #     DB_HOST: mysql_database
+  #     DB_NAME: lab2db2
+  #     DB_USERNAME: david
+  #     DB_PASSWORD: Passer1234@
+  #   ports:
+  #     - "8081:8081"
+  #   depends_on:
+  #     - mysql_database
+  #     - keycloak
 
   mysql_database:
     image: mysql

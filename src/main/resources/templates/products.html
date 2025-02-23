@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Document</title>
   <style>
+    body{
+      padding: 4px 12%;
+    }
     table,tr,th,td {
       border: solid black 1px;
       border-collapse: collapse;
@@ -16,7 +19,7 @@
 
   </style>
 </head>
-<body>
+<body >
 
 <form th:action="@{/products}" th:object="${product}" method="post">
   <div style="display: flex;justify-content: space-between;align-items: center" >
@@ -26,13 +29,13 @@
     <div>
       <span th:object="${username}"></span>
       <span th:object="${name}"></span>
-      <button onclick="javascript:document.location.href='http://localhost:8081/logout'" >Déconnexion</button>
+      <button type="button" class="btn-primary" onclick="javascript:document.location.href='http://localhost:8081/logout'" >Déconnexion</button>
     </div>
   </div>
   <br>
   <div style="display: flex;align-items: center" >
-    <input type="text" placeholder="Product designation" id="name" th:field="*{name}" required />
-    <button type="submit">Save</button>
+    <input class="input-group mb-3" type="text" placeholder="Product designation" id="name" th:field="*{name}" required />
+    <button class="btn-primary" type="submit">Save</button>
   </div>
 </form>
 <br>
@@ -49,16 +52,18 @@
     <td th:text="${product.ref}">1</td>
     <td><a href="#" th:text="${product.name}">Title ...</a></td>
     <td>
-      <a th:href="'/products/edit/'+${product.ref}">
+      <a style="text-decoration: none" th:href="'/products/edit/'+${product.ref}">
         <button>Modifier</button>
       </a>
-      <a th:href="'/products/delete/'+${product.ref}">
+      <a style="text-decoration: none" th:href="'/products/delete/'+${product.ref}">
         <button>Supprimer</button>
       </a>
     </td>
   </tr>
+
   </tbody>
 </table>
+
 </body>
 </html>
 
